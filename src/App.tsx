@@ -188,7 +188,7 @@ export default function App() {
 
   return (
     <div 
-      className={`relative w-screen ${isMobile ? 'min-h-screen overflow-y-auto' : 'h-screen overflow-hidden'} bg-desk select-none flex items-center justify-center`}
+      className={`relative w-screen ${isMobile ? 'min-h-screen overflow-y-auto scroll-smooth' : 'h-screen overflow-hidden'} bg-desk select-none flex items-center justify-center`}
       onClick={() => {
         if (isFolderOpen && !activeProject) setIsFolderOpen(false);
       }}
@@ -379,13 +379,13 @@ export default function App() {
                     }}
                     onMouseEnter={() => setCursorType('view')}
                     onMouseLeave={() => setCursorType('default')}
-                    className={`absolute left-1/2 top-1/2 ${isMobile ? 'w-[160px] h-[200px]' : 'w-[240px] h-[300px]'} shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer group ${
+                    className={`absolute left-1/2 top-1/2 ${isMobile ? 'w-[140px] h-[180px]' : 'w-[240px] h-[300px]'} shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer group ${
                       isFolderOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
                     }`}
                     style={{
                       backgroundColor: p.color,
                       transform: isFolderOpen 
-                        ? `translate(calc(-50% + ${isMobile ? p.x * 0.35 : p.x}px), calc(-50% + ${isMobile ? p.y * 0.35 : p.y}px)) rotate(${p.rotation}deg)` 
+                        ? `translate(calc(-50% + ${isMobile ? p.x * 0.28 : p.x}px), calc(-50% + ${isMobile ? p.y * 0.28 : p.y}px)) rotate(${p.rotation}deg)` 
                         : `translate(-50%, -50%) rotate(0deg)`,
                       zIndex: isFolderOpen ? 20 + i : 5,
                       transitionDelay: isFolderOpen ? `${i * 80}ms` : '0ms'
@@ -396,8 +396,8 @@ export default function App() {
                       →
                     </div>
                     <div className="absolute bottom-6 left-6 pr-4" style={{ color: p.textColor }}>
-                      <p className="font-sans text-[10px] uppercase tracking-widest opacity-60 mb-1">Project 0{i+1}</p>
-                      <h3 className="font-serif text-[28px] font-bold leading-tight">{p.title}</h3>
+                      <p className={`font-sans ${isMobile ? 'text-[8px]' : 'text-[10px]'} uppercase tracking-widest opacity-60 mb-1`}>Project 0{i+1}</p>
+                      <h3 className={`font-serif ${isMobile ? 'text-[20px]' : 'text-[28px]'} font-bold leading-tight`}>{p.title}</h3>
                     </div>
                   </div>
                 ))}
@@ -465,7 +465,7 @@ export default function App() {
             </div>
 
             {/* Content Area */}
-            <div className="flex-1 overflow-y-auto custom-scrollbar">
+            <div className="flex-1 overflow-y-auto custom-scrollbar" style={{ WebkitOverflowScrolling: 'touch' }}>
               <div className="w-full flex flex-col items-center">
                 {currentProject?.content ? (
                   <div className="w-full flex flex-col">
@@ -551,7 +551,7 @@ export default function App() {
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto custom-scrollbar pb-20">
+          <div className="flex-1 overflow-y-auto custom-scrollbar pb-20" style={{ WebkitOverflowScrolling: 'touch' }}>
              <div className={`flex ${isMobile ? 'flex-col gap-8' : 'gap-12'} pt-8 items-start mx-auto`} style={{ width: isMobile ? '100%' : '1350px' }}>
                 {/* Left: Image */}
                 <div className={`${isMobile ? 'w-full' : 'shrink-0'}`} style={{ width: isMobile ? '100%' : '360px' }}>
