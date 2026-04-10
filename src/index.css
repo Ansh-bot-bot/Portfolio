@@ -24,12 +24,19 @@
   @media (max-width: 767px) {
     body {
       cursor: auto;
-      overflow-y: auto;
-      height: auto;
+      overflow-y: auto !important;
+      height: auto !important;
       min-height: 100vh;
       -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
     }
   }
+}
+
+.mobile-scroll-fix {
+  -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-y !important;
+  cursor: auto !important;
 }
 
 @layer utilities {

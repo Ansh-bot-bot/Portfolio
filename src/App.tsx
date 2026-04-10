@@ -188,7 +188,7 @@ export default function App() {
 
   return (
     <div 
-      className={`relative w-screen ${isMobile ? 'min-h-screen overflow-y-auto scroll-smooth' : 'h-screen overflow-hidden'} bg-desk select-none flex items-center justify-center`}
+      className={`relative w-full ${isMobile ? 'min-h-screen overflow-visible mobile-scroll-fix' : 'w-screen h-screen overflow-hidden select-none'} bg-desk flex items-center justify-center`}
       onClick={() => {
         if (isFolderOpen && !activeProject) setIsFolderOpen(false);
       }}
@@ -249,12 +249,12 @@ export default function App() {
 
       {/* Scaled Content Container */}
       <div 
-        className={`relative ${isMobile ? 'w-full h-full' : 'w-[1920px] h-[1080px]'} shrink-0 origin-center transition-transform duration-500 ease-out flex flex-col md:block`}
+        className={`relative ${isMobile ? 'w-full min-h-full' : 'w-[1920px] h-[1080px]'} shrink-0 origin-center transition-transform duration-500 ease-out flex flex-col md:block`}
         style={{ transform: isMobile ? 'none' : `scale(${scale})` }}
       >
         {/* Left Panel */}
         <div 
-          className={`${isMobile ? 'relative w-full px-8 pt-24 pb-12' : 'absolute left-0 top-0 w-[38%] h-full pl-[37px] pt-[25px]'} flex flex-col justify-center z-10 transition-transform duration-700 ease-in-out ${
+          className={`${isMobile ? 'relative w-full px-8 pt-24 pb-12 flex flex-col mobile-scroll-fix' : 'absolute left-0 top-0 w-[38%] h-full pl-[37px] pt-[25px] flex flex-col justify-center'} z-10 transition-transform duration-700 ease-in-out ${
             activeProject ? (isMobile ? 'opacity-0 pointer-events-none' : '-translate-x-full') : 'translate-x-0 opacity-100'
           }`}
         >
@@ -314,7 +314,7 @@ export default function App() {
         </div>
 
         {/* Right Panel / Desktop Area */}
-        <div className={`${isMobile ? 'relative w-full flex-1 min-h-[500px]' : 'absolute right-0 top-0 w-[62%] h-full'} flex items-center justify-center pointer-events-none`}>
+        <div className={`${isMobile ? 'relative w-full flex-1 min-h-[500px] mobile-scroll-fix' : 'absolute right-0 top-0 w-[62%] h-full'} flex items-center justify-center pointer-events-none`}>
           <div className="relative w-full h-full flex items-center justify-center">
             
             {/* Folder Container */}
