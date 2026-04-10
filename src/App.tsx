@@ -258,7 +258,7 @@ export default function App() {
               Graphic & Visual Designer
             </p>
             
-            <p className="font-sans text-[17px] text-primary/60 max-w-[500px] mb-10 leading-[1.6]">
+            <p className="font-sans text-[18px] text-primary/60 max-w-[500px] mb-10 leading-[1.6]">
               Crafting digital experiences that bridge the gap between physical tactility and digital precision.
             </p>
 
@@ -294,7 +294,7 @@ export default function App() {
                   rel="noopener noreferrer"
                   onMouseEnter={() => setCursorType('pill')}
                   onMouseLeave={() => setCursorType('default')}
-                  className="font-sans text-[13px] text-primary/40 uppercase tracking-[2px] hover:text-primary transition-colors"
+                  className="font-sans text-[14px] text-primary/40 uppercase tracking-[2px] hover:text-primary transition-colors"
                 >
                   {link.name}
                 </a>
@@ -542,35 +542,37 @@ export default function App() {
 
           {/* Content */}
           <div className="flex-1 overflow-y-auto custom-scrollbar pb-20">
-             <div className="flex gap-10 pt-8 items-start mx-auto" style={{ width: '1350px' }}>
+             <div className="flex gap-12 pt-8 items-start mx-auto" style={{ width: '1350px' }}>
                 {/* Left: Image */}
-                <div className="shrink-0" style={{ width: '395px' }}>
+                <div className="shrink-0" style={{ width: '360px' }}>
                    <div className="w-full aspect-[4/5] bg-black/5 overflow-hidden rounded-sm shadow-2xl">
                       <img 
                         src="https://lh3.googleusercontent.com/d/1OqHvcwZsMLvuKj-4MBHukL5Aj-SRL3FO" 
                         alt="Harshita Tanwar" 
                         className="w-full h-full object-cover"
                         referrerPolicy="no-referrer"
-                        style={{ width: '394.675px', height: '506.588px' }}
+                        style={{ width: '360px', height: '450px' }}
                       />
                    </div>
                 </div>
 
                 {/* Right: Info Grid */}
-                <div className="flex-1 grid grid-cols-3 gap-10">
+                <div className="flex-1 grid grid-cols-3 gap-12">
                    {/* Column 1: About */}
                    <div style={{ width: '300px' }}>
-                      <h3 className="font-sans text-[12px] uppercase tracking-[4px] opacity-40 mb-10">About</h3>
-                      <div className="flex items-center gap-4 mb-8">
-                         <span className="font-serif text-[80px] font-black leading-none">2+</span>
-                         <span className="font-sans text-[14px] leading-tight uppercase tracking-[2px] opacity-60">Years of<br/>experience</span>
+                      <div className="mb-16">
+                        <h3 className="font-sans text-[12px] uppercase tracking-[4px] opacity-40 mb-10">About</h3>
+                        <div className="flex items-center gap-4 mb-8">
+                           <span className="font-serif text-[80px] font-black leading-none">2+</span>
+                           <span className="font-sans text-[14px] leading-tight uppercase tracking-[2px] opacity-60">Years of<br/>experience</span>
+                        </div>
+                        <p className="font-sans text-[15px] leading-[1.7] opacity-80" style={{ width: '282px' }}>
+                          I’m just a girl with creative ideas and a serious relationship with good design. As a graphic designer, I turn random thoughts, tiny details, and last-minute sparks of inspiration into visuals that actually speak. Somewhere between color palettes, typography, and creative chaos, I found my thing — making ideas look beautiful, smart, and a little unforgettable.
+                        </p>
                       </div>
-                      <p className="font-sans text-[15px] leading-[1.7] opacity-80" style={{ width: '282px' }}>
-                        I’m just a girl with creative ideas and a serious relationship with good design. As a graphic designer, I turn random thoughts, tiny details, and last-minute sparks of inspiration into visuals that actually speak. Somewhere between color palettes, typography, and creative chaos, I found my thing — making ideas look beautiful, smart, and a little unforgettable.
-                      </p>
                    </div>
 
-                   {/* Column 2: Software & Contact */}
+                   {/* Column 2: Software & Education */}
                    <div style={{ width: '236px' }}>
                       <div className="mb-12">
                         <h3 className="font-sans text-[12px] uppercase tracking-[4px] opacity-40 mb-10">Software</h3>
@@ -584,38 +586,16 @@ export default function App() {
                       </div>
 
                       <div>
-                        <h3 className="font-sans text-[12px] uppercase tracking-[4px] opacity-40 mb-10">Contact</h3>
-                        <div className="flex gap-6">
-                           <a 
-                             href="https://www.instagram.com/harshitatanwarr/" 
-                             target="_blank"
-                             rel="noopener noreferrer"
-                             className="opacity-60 hover:opacity-100 transition-opacity" 
-                             onMouseEnter={() => setCursorType('dot')} 
-                             onMouseLeave={() => setCursorType('default')}
-                           >
-                              <img src="https://lh3.googleusercontent.com/d/1u55lTAnY9r-gXWoc4pGyzAnzWgyGZn34" alt="Instagram" className="w-6 h-6 object-contain" referrerPolicy="no-referrer" />
-                           </a>
-                           <a 
-                             href="https://www.behance.net/harshitatanwar" 
-                             target="_blank"
-                             rel="noopener noreferrer"
-                             className="opacity-60 hover:opacity-100 transition-opacity" 
-                             onMouseEnter={() => setCursorType('dot')} 
-                             onMouseLeave={() => setCursorType('default')}
-                           >
-                              <img src="https://lh3.googleusercontent.com/d/1Azomv8-iOq1n_kGbmwJsUdfl3r3VIwN4" alt="Behance" className="w-6 h-6 object-contain" referrerPolicy="no-referrer" />
-                           </a>
-                           <a 
-                             href="https://www.linkedin.com/in/harshita-tanwar-8b2878280/" 
-                             target="_blank"
-                             rel="noopener noreferrer"
-                             className="opacity-60 hover:opacity-100 transition-opacity" 
-                             onMouseEnter={() => setCursorType('dot')} 
-                             onMouseLeave={() => setCursorType('default')}
-                           >
-                              <img src="https://lh3.googleusercontent.com/d/1uH9D0VZa7UH6-zMNtqeOc9uFXlQd6WkI" alt="LinkedIn" className="w-6 h-6 object-contain" referrerPolicy="no-referrer" />
-                           </a>
+                        <h3 className="font-sans text-[12px] uppercase tracking-[4px] opacity-40 mb-8">Education</h3>
+                        <div className="flex flex-col gap-6">
+                           <div>
+                              <h4 className="font-sans text-[15px] font-bold leading-tight">Masters in Visual Experiential Design</h4>
+                              <p className="font-sans text-[13px] opacity-60 mt-1">Unitedworld Institute of Design (UID)<br/>(2025 - 2027)</p>
+                           </div>
+                           <div>
+                              <h4 className="font-sans text-[15px] font-bold leading-tight">B.sc. Animation & Visual Graphics</h4>
+                              <p className="font-sans text-[13px] opacity-60 mt-1">Amity University (2022 – 2025)</p>
+                           </div>
                         </div>
                       </div>
                    </div>
