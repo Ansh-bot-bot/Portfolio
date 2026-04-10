@@ -607,10 +607,10 @@ export default function App() {
                          {[
                            { role: 'Graphic Designer', company: 'Opacity Studio' },
                            { role: 'Graphic Designer', company: 'Social Theory Media Inc' },
-                           { role: 'GD Intern', company: 'Amity University Rajasthan' },
+                           { role: 'Graphic Design Intern', company: 'Amity University Rajasthan' },
                            { role: 'Graphic Designer', company: 'Devwings' },
-                           { role: 'GD Intern', company: 'Nimantran Digital Designs' },
-                           { role: 'GD Intern', company: 'The Digital Company' },
+                           { role: 'Graphic Design Intern', company: 'Nimantran Digital Designs' },
+                           { role: 'Graphic Design Intern', company: 'The Digital Company' },
                          ].map((exp, i) => (
                            <div key={i} className="flex gap-4">
                               <div className="w-1.5 h-1.5 bg-[#C77DFF] rounded-full mt-[8px] shrink-0" />
