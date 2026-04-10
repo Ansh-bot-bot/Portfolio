@@ -26,8 +26,8 @@ const PROJECTS = [
   { 
     id: 'packaging', 
     title: 'Packaging', 
-    color: 'var(--color-packaging)', 
-    textColor: '#FFFFFF', 
+    color: '#FDDBF5', 
+    textColor: '#1A1A1A', 
     rotation: -3, 
     x: -260, 
     y: 100,
@@ -42,7 +42,7 @@ const PROJECTS = [
   { 
     id: 'branding', 
     title: 'Branding', 
-    color: 'var(--color-branding)', 
+    color: '#C8BAF8', 
     textColor: '#1A1A1A', 
     rotation: 0, 
     x: 0, 
@@ -95,7 +95,7 @@ const PROJECTS = [
   { 
     id: 'illustration', 
     title: 'Illustration', 
-    color: '#C87092', 
+    color: '#EBCC42', 
     textColor: '#1A1A1A', 
     rotation: 9, 
     x: 520, 
@@ -220,6 +220,12 @@ export default function App() {
               key={item}
               onClick={() => {
                 if (item === 'About') setIsAboutOpen(true);
+                if (item === 'Work') {
+                  setIsAboutOpen(false);
+                  setActiveProject(null);
+                  setIsFolderOpen(true);
+                }
+                if (item === 'Contact') setIsAboutOpen(true);
               }}
               onMouseEnter={() => setCursorType('pill')}
               onMouseLeave={() => setCursorType('default')}
@@ -243,16 +249,16 @@ export default function App() {
           }`}
         >
           <div className={`transition-all duration-700 delay-100 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h1 className="font-serif text-[128px] leading-[0.85] font-black tracking-[-4px] mb-6 pb-[10px]">
+            <h1 className="font-serif text-[120px] leading-[114px] font-black tracking-[-4px] mb-6 pb-[10px]">
               Harshita<br />Tanwar
             </h1>
             
             <div className="w-16 h-[2px] bg-primary mb-4" />
-            <p className="font-sans text-[18px] font-normal uppercase tracking-[4px] mb-6 pt-[7px]">
+            <p className="font-sans text-[16px] font-normal uppercase tracking-[4px] mb-6 pt-[7px]">
               Graphic & Visual Designer
             </p>
             
-            <p className="font-sans text-[19px] text-primary/60 max-w-[500px] mb-10 leading-[1.6]">
+            <p className="font-sans text-[17px] text-primary/60 max-w-[500px] mb-10 leading-[1.6]">
               Crafting digital experiences that bridge the gap between physical tactility and digital precision.
             </p>
 
@@ -261,7 +267,7 @@ export default function App() {
                 onMouseEnter={() => setCursorType('pill')}
                 onMouseLeave={() => setCursorType('default')}
                 onClick={handleFolderClick}
-                className="font-sans text-[16px] font-medium uppercase tracking-[2px] border-b-2 border-primary pb-1 hover:opacity-60 transition-opacity"
+                className="font-sans text-[15px] font-medium uppercase tracking-[2px] border-b-2 border-primary pb-1 hover:opacity-60 transition-opacity"
               >
                 View Work
               </button>
@@ -269,7 +275,7 @@ export default function App() {
                 onMouseEnter={() => setCursorType('pill')}
                 onMouseLeave={() => setCursorType('default')}
                 onClick={() => setIsAboutOpen(true)}
-                className="font-sans text-[16px] font-medium uppercase tracking-[2px] border-b-2 border-primary pb-1 hover:opacity-60 transition-opacity"
+                className="font-sans text-[15px] font-medium uppercase tracking-[2px] border-b-2 border-primary pb-1 hover:opacity-60 transition-opacity"
               >
                 About Me
               </button>
@@ -288,7 +294,7 @@ export default function App() {
                   rel="noopener noreferrer"
                   onMouseEnter={() => setCursorType('pill')}
                   onMouseLeave={() => setCursorType('default')}
-                  className="font-sans text-[14px] text-primary/40 uppercase tracking-[2px] hover:text-primary transition-colors"
+                  className="font-sans text-[13px] text-primary/40 uppercase tracking-[2px] hover:text-primary transition-colors"
                 >
                   {link.name}
                 </a>
@@ -588,7 +594,7 @@ export default function App() {
                              onMouseEnter={() => setCursorType('dot')} 
                              onMouseLeave={() => setCursorType('default')}
                            >
-                              <Instagram size={20} />
+                              <img src="https://lh3.googleusercontent.com/d/1u55lTAnY9r-gXWoc4pGyzAnzWgyGZn34" alt="Instagram" className="w-6 h-6 object-contain" referrerPolicy="no-referrer" />
                            </a>
                            <a 
                              href="https://www.behance.net/harshitatanwar" 
@@ -598,9 +604,7 @@ export default function App() {
                              onMouseEnter={() => setCursorType('dot')} 
                              onMouseLeave={() => setCursorType('default')}
                            >
-                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M9 12h2a2.1 2.1 0 1 1 0 4H9V8h2a2 2 0 1 1 0 4H9zm0 0h2"/><path d="M15 13h6"/><path d="M15 17h6a3 3 0 0 0 0-6h-6v6z"/>
-                              </svg>
+                              <img src="https://lh3.googleusercontent.com/d/1Azomv8-iOq1n_kGbmwJsUdfl3r3VIwN4" alt="Behance" className="w-6 h-6 object-contain" referrerPolicy="no-referrer" />
                            </a>
                            <a 
                              href="https://www.linkedin.com/in/harshita-tanwar-8b2878280/" 
@@ -610,7 +614,7 @@ export default function App() {
                              onMouseEnter={() => setCursorType('dot')} 
                              onMouseLeave={() => setCursorType('default')}
                            >
-                              <Linkedin size={20} />
+                              <img src="https://lh3.googleusercontent.com/d/1uH9D0VZa7UH6-zMNtqeOc9uFXlQd6WkI" alt="LinkedIn" className="w-6 h-6 object-contain" referrerPolicy="no-referrer" />
                            </a>
                         </div>
                       </div>
