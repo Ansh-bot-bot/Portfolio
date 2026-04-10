@@ -18,7 +18,7 @@ const PROJECTS = [
     content: [
       { type: 'image', url: 'https://lh3.googleusercontent.com/d/1TJVyXUGLELZKdzdoGMaDtXO2MNu53LPq' },
       { type: 'image', url: 'https://lh3.googleusercontent.com/d/1hSsqhXPbRLSNc76FSiY5o7axZ4E9pXDV' },
-      { type: 'image', url: 'https://lh3.googleusercontent.com/d/1l0JWKxqFhwxbBorkF6A83UwBbLQoAXi6' },
+      { type: 'image', url: 'https://lh3.googleusercontent.com/d/1BhqLRaPpyNFGpdllmb7-LaV0LkgYOfhE' },
       { type: 'image', url: 'https://lh3.googleusercontent.com/d/1Vv4TJyQ84ezSYP_aEsvib7J4WzE745RA' },
       { type: 'image', url: 'https://lh3.googleusercontent.com/d/1nnW7RwIW5i4C4j_rsO8zBJCWPsW5WbE7' }
     ]
