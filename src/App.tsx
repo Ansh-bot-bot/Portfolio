@@ -118,6 +118,7 @@ export default function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [scale, setScale] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
 
   const cursorRef = useRef<HTMLDivElement>(null);
   const requestRef = useRef<number>(null);
@@ -125,11 +126,18 @@ export default function App() {
   // Handle responsive scaling
   useEffect(() => {
     const handleResize = () => {
-      const targetWidth = 1920;
-      const targetHeight = 1080;
-      const widthScale = window.innerWidth / targetWidth;
-      const heightScale = window.innerHeight / targetHeight;
-      setScale(Math.min(widthScale, heightScale, 1));
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+
+      if (!mobile) {
+        const targetWidth = 1920;
+        const targetHeight = 1080;
+        const widthScale = window.innerWidth / targetWidth;
+        const heightScale = window.innerHeight / targetHeight;
+        setScale(Math.min(widthScale, heightScale, 1));
+      } else {
+        setScale(1);
+      }
     };
 
     handleResize();
@@ -180,41 +188,43 @@ export default function App() {
 
   return (
     <div 
-      className="relative w-screen h-screen bg-desk overflow-hidden select-none flex items-center justify-center"
+      className={`relative w-screen ${isMobile ? 'min-h-screen overflow-y-auto' : 'h-screen overflow-hidden'} bg-desk select-none flex items-center justify-center`}
       onClick={() => {
         if (isFolderOpen && !activeProject) setIsFolderOpen(false);
       }}
     >
       {/* Custom Cursor (Moved outside scaled container for correct positioning) */}
-      <div
-        ref={cursorRef}
-        className={`fixed pointer-events-none z-[9999] flex items-center justify-center transition-[width,height,border-radius,background-color] duration-200 ease-out ${
-          cursorType === 'default' ? 'w-3 h-3 bg-primary rounded-full' :
-          cursorType === 'open' ? 'w-14 h-14 bg-primary rounded-full' :
-          cursorType === 'view' ? 'w-14 h-14 bg-primary rounded-full' :
-          cursorType === 'dot' ? 'w-2 h-2 bg-primary rounded-full' :
-          'w-10 h-4 bg-primary rounded-full'
-        }`}
-        style={{
-          left: cursorPos.x,
-          top: cursorPos.y,
-          transform: 'translate(-50%, -50%)',
-        }}
-      >
-        {(cursorType === 'open' || cursorType === 'view') && (
-          <span className="text-desk text-[11px] font-medium uppercase tracking-wider">
-            {cursorType}
-          </span>
-        )}
-      </div>
+      {!isMobile && (
+        <div
+          ref={cursorRef}
+          className={`fixed pointer-events-none z-[9999] flex items-center justify-center transition-[width,height,border-radius,background-color] duration-200 ease-out ${
+            cursorType === 'default' ? 'w-3 h-3 bg-primary rounded-full' :
+            cursorType === 'open' ? 'w-14 h-14 bg-primary rounded-full' :
+            cursorType === 'view' ? 'w-14 h-14 bg-primary rounded-full' :
+            cursorType === 'dot' ? 'w-2 h-2 bg-primary rounded-full' :
+            'w-10 h-4 bg-primary rounded-full'
+          }`}
+          style={{
+            left: cursorPos.x,
+            top: cursorPos.y,
+            transform: 'translate(-50%, -50%)',
+          }}
+        >
+          {(cursorType === 'open' || cursorType === 'view') && (
+            <span className="text-desk text-[11px] font-medium uppercase tracking-wider">
+              {cursorType}
+            </span>
+          )}
+        </div>
+      )}
 
       {/* Top Navigation */}
-      <nav className={`fixed top-0 left-0 w-full h-[64px] px-12 z-[100] flex justify-between items-center border-b border-black/[0.08] transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'} ${activeProject ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+      <nav className={`fixed top-0 left-0 w-full h-[64px] ${isMobile ? 'px-6' : 'px-12'} z-[100] flex justify-between items-center border-b border-black/[0.08] transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'} ${activeProject ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <div className="flex items-center gap-3">
-          <div className="w-2 h-2 bg-primary rounded-full" />
+          {!isMobile && <div className="w-2 h-2 bg-primary rounded-full" />}
           <span className="font-sans text-[14px] font-bold uppercase tracking-[3px]">HARSHITA TANWAR</span>
         </div>
-        <div className="flex gap-14">
+        <div className={`flex ${isMobile ? 'gap-6' : 'gap-14'}`}>
           {['Work', 'About', 'Contact'].map((item) => (
             <button
               key={item}
@@ -229,7 +239,7 @@ export default function App() {
               }}
               onMouseEnter={() => setCursorType('pill')}
               onMouseLeave={() => setCursorType('default')}
-              className="font-sans text-[14px] font-medium uppercase tracking-[3px] hover:opacity-50 transition-opacity"
+              className="font-sans text-[12px] md:text-[14px] font-medium uppercase tracking-[2px] md:tracking-[3px] hover:opacity-50 transition-opacity"
             >
               {item}
             </button>
@@ -239,30 +249,30 @@ export default function App() {
 
       {/* Scaled Content Container */}
       <div 
-        className="relative w-[1920px] h-[1080px] shrink-0 origin-center transition-transform duration-500 ease-out"
-        style={{ transform: `scale(${scale})` }}
+        className={`relative ${isMobile ? 'w-full h-full' : 'w-[1920px] h-[1080px]'} shrink-0 origin-center transition-transform duration-500 ease-out flex flex-col md:block`}
+        style={{ transform: isMobile ? 'none' : `scale(${scale})` }}
       >
         {/* Left Panel */}
         <div 
-          className={`absolute left-0 top-0 w-[38%] h-full flex flex-col justify-center pl-[37px] pt-[25px] z-10 transition-transform duration-700 ease-in-out ${
-            activeProject ? '-translate-x-full' : 'translate-x-0'
+          className={`${isMobile ? 'relative w-full px-8 pt-24 pb-12' : 'absolute left-0 top-0 w-[38%] h-full pl-[37px] pt-[25px]'} flex flex-col justify-center z-10 transition-transform duration-700 ease-in-out ${
+            activeProject ? (isMobile ? 'opacity-0 pointer-events-none' : '-translate-x-full') : 'translate-x-0 opacity-100'
           }`}
         >
-          <div className={`transition-all duration-700 delay-100 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h1 className="font-serif text-[120px] leading-[114px] font-black tracking-[-4px] mb-6 pb-[10px]">
+          <div className={`transition-all duration-700 delay-100 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${isMobile ? 'items-center text-center' : ''} flex flex-col`}>
+            <h1 className={`font-serif ${isMobile ? 'text-[64px] leading-[1.1]' : 'text-[120px] leading-[114px]'} font-black tracking-[-4px] mb-6 pb-[10px]`}>
               Harshita<br />Tanwar
             </h1>
             
-            <div className="w-16 h-[2px] bg-primary mb-4" />
-            <p className="font-sans text-[16px] font-normal uppercase tracking-[4px] mb-6 pt-[7px]">
+            <div className={`w-16 h-[2px] bg-primary mb-4 ${isMobile ? 'mx-auto' : ''}`} />
+            <p className={`font-sans ${isMobile ? 'text-[14px]' : 'text-[16px]'} font-normal uppercase tracking-[4px] mb-6 pt-[7px]`}>
               Graphic & Visual Designer
             </p>
             
-            <p className="font-sans text-[18px] text-primary/60 max-w-[500px] mb-10 leading-[1.6]">
+            <p className={`font-sans ${isMobile ? 'text-[15px]' : 'text-[18px]'} text-primary/60 max-w-[500px] mb-10 leading-[1.6] ${isMobile ? 'mx-auto' : ''}`}>
               Crafting digital experiences that bridge the gap between physical tactility and digital precision.
             </p>
 
-            <div className="flex gap-8 mb-12">
+            <div className={`flex gap-8 mb-12 ${isMobile ? 'justify-center' : ''}`}>
               <button 
                 onMouseEnter={() => setCursorType('pill')}
                 onMouseLeave={() => setCursorType('default')}
@@ -281,7 +291,7 @@ export default function App() {
               </button>
             </div>
 
-            <div className="flex gap-10">
+            <div className={`flex gap-10 ${isMobile ? 'justify-center' : ''}`}>
               {[
                 { name: 'Instagram', url: 'https://www.instagram.com/harshitatanwarr/' },
                 { name: 'Behance', url: 'https://www.behance.net/harshitatanwar' },
@@ -304,7 +314,7 @@ export default function App() {
         </div>
 
         {/* Right Panel / Desktop Area */}
-        <div className="absolute right-0 top-0 w-[62%] h-full flex items-center justify-center pointer-events-none">
+        <div className={`${isMobile ? 'relative w-full flex-1 min-h-[500px]' : 'absolute right-0 top-0 w-[62%] h-full'} flex items-center justify-center pointer-events-none`}>
           <div className="relative w-full h-full flex items-center justify-center">
             
             {/* Folder Container */}
@@ -316,7 +326,7 @@ export default function App() {
             >
               {/* The Folder */}
               <div 
-                className="relative w-[680px] h-[480px] perspective-1200"
+                className={`relative ${isMobile ? 'w-[90vw] h-[60vw] max-w-[680px] max-h-[480px]' : 'w-[680px] h-[480px]'} perspective-1200`}
                 onMouseEnter={() => !isFolderOpen && setCursorType('open')}
                 onMouseLeave={() => setCursorType('default')}
                 onClick={handleFolderClick}
@@ -346,7 +356,7 @@ export default function App() {
                     </span>
                   </div>
                   
-                  <h2 className="font-serif text-[72px] font-bold text-primary/20">Portfolio</h2>
+                  <h2 className={`font-serif ${isMobile ? 'text-[48px]' : 'text-[72px]'} font-bold text-primary/20`}>Portfolio</h2>
                 </div>
 
                 {/* Folder Flap */}
@@ -369,13 +379,13 @@ export default function App() {
                     }}
                     onMouseEnter={() => setCursorType('view')}
                     onMouseLeave={() => setCursorType('default')}
-                    className={`absolute left-1/2 top-1/2 w-[240px] h-[300px] shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer group ${
+                    className={`absolute left-1/2 top-1/2 ${isMobile ? 'w-[160px] h-[200px]' : 'w-[240px] h-[300px]'} shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer group ${
                       isFolderOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
                     }`}
                     style={{
                       backgroundColor: p.color,
                       transform: isFolderOpen 
-                        ? `translate(calc(-50% + ${p.x}px), calc(-50% + ${p.y}px)) rotate(${p.rotation}deg)` 
+                        ? `translate(calc(-50% + ${isMobile ? p.x * 0.35 : p.x}px), calc(-50% + ${isMobile ? p.y * 0.35 : p.y}px)) rotate(${p.rotation}deg)` 
                         : `translate(-50%, -50%) rotate(0deg)`,
                       zIndex: isFolderOpen ? 20 + i : 5,
                       transitionDelay: isFolderOpen ? `${i * 80}ms` : '0ms'
@@ -424,9 +434,9 @@ export default function App() {
         style={{ backgroundColor: currentProject?.color || 'transparent' }}
       >
         {activeProject && (
-          <div className="w-full h-full flex flex-col py-0 px-[150px]" style={{ color: currentProject?.textColor }}>
+          <div className={`w-full h-full flex flex-col py-0 ${isMobile ? 'px-6' : 'px-[150px]'}`} style={{ color: currentProject?.textColor }}>
             {/* Top Bar */}
-            <div className="flex items-center justify-between mb-12">
+            <div className={`flex items-center justify-between ${isMobile ? 'h-[80px] mb-4' : 'h-[120px] mb-12'} shrink-0`}>
               <button 
                 onClick={handleBack}
                 onMouseEnter={() => setCursorType('dot')}
@@ -439,7 +449,7 @@ export default function App() {
                 <span className="font-sans text-[12px] uppercase tracking-[3px]">Back</span>
               </button>
 
-              <h2 className="font-serif text-[32px] font-bold">{currentProject?.title}</h2>
+              <h2 className={`font-serif ${isMobile ? 'text-[24px]' : 'text-[32px]'} font-bold`}>{currentProject?.title}</h2>
 
               <button 
                 onClick={handleBack}
@@ -460,7 +470,7 @@ export default function App() {
                 {currentProject?.content ? (
                   <div className="w-full flex flex-col">
                     {currentProject.content.map((item, idx) => (
-                      <div key={idx} className="w-full bg-black/5 min-h-[400px] flex items-center justify-center relative">
+                      <div key={idx} className={`w-full bg-black/5 ${isMobile ? 'min-h-[200px]' : 'min-h-[400px]'} flex items-center justify-center relative`}>
                         <img 
                           src={item.url}
                           alt={`${currentProject.title} content ${idx}`}
@@ -485,7 +495,7 @@ export default function App() {
                   </div>
                 ) : (
                   <div 
-                    className="w-[600px] h-[800px] border-2 border-dashed flex items-center justify-center transition-all duration-700 delay-300"
+                    className={`${isMobile ? 'w-full aspect-[3/4]' : 'w-[600px] h-[800px]'} border-2 border-dashed flex items-center justify-center transition-all duration-700 delay-300`}
                     style={{ 
                       borderColor: currentProject?.textColor + '44',
                       opacity: activeProject ? 1 : 0,
@@ -510,9 +520,9 @@ export default function App() {
         }`}
         style={{ backgroundColor: '#F7F5F0' }}
       >
-        <div className="w-full h-full flex flex-col py-0 px-[80px] text-primary">
+        <div className={`w-full h-full flex flex-col py-0 ${isMobile ? 'px-6' : 'px-[80px]'} text-primary`}>
           {/* Top Bar */}
-          <div className="flex items-center justify-between h-[120px] shrink-0">
+          <div className={`flex items-center justify-between ${isMobile ? 'h-[80px]' : 'h-[120px]'} shrink-0`}>
             <button 
               onClick={() => setIsAboutOpen(false)}
               onMouseEnter={() => setCursorType('dot')}
@@ -525,7 +535,7 @@ export default function App() {
               <span className="font-sans text-[12px] uppercase tracking-[3px]">Back</span>
             </button>
 
-            <h2 className="font-serif text-[32px] font-bold">About Me</h2>
+            <h2 className={`font-serif ${isMobile ? 'text-[24px]' : 'text-[32px]'} font-bold`}>About Me</h2>
 
             <button 
               onClick={() => setIsAboutOpen(false)}
@@ -542,38 +552,38 @@ export default function App() {
 
           {/* Content */}
           <div className="flex-1 overflow-y-auto custom-scrollbar pb-20">
-             <div className="flex gap-12 pt-8 items-start mx-auto" style={{ width: '1350px' }}>
+             <div className={`flex ${isMobile ? 'flex-col gap-8' : 'gap-12'} pt-8 items-start mx-auto`} style={{ width: isMobile ? '100%' : '1350px' }}>
                 {/* Left: Image */}
-                <div className="shrink-0" style={{ width: '360px' }}>
-                   <div className="w-full aspect-[4/5] bg-black/5 overflow-hidden rounded-sm shadow-2xl">
+                <div className={`${isMobile ? 'w-full' : 'shrink-0'}`} style={{ width: isMobile ? '100%' : '360px' }}>
+                   <div className={`w-full aspect-[4/5] bg-black/5 overflow-hidden rounded-sm shadow-2xl ${isMobile ? 'max-w-[360px] mx-auto' : ''}`}>
                       <img 
                         src="https://lh3.googleusercontent.com/d/1OqHvcwZsMLvuKj-4MBHukL5Aj-SRL3FO" 
                         alt="Harshita Tanwar" 
                         className="w-full h-full object-cover"
                         referrerPolicy="no-referrer"
-                        style={{ width: '360px', height: '450px' }}
+                        style={{ width: '100%', height: '100%' }}
                       />
                    </div>
                 </div>
 
                 {/* Right: Info Grid */}
-                <div className="flex-1 grid grid-cols-3 gap-12">
+                <div className={`flex-1 grid ${isMobile ? 'grid-cols-1 gap-12' : 'grid-cols-3 gap-12'}`}>
                    {/* Column 1: About */}
-                   <div style={{ width: '300px' }}>
+                   <div style={{ width: isMobile ? '100%' : '300px' }}>
                       <div className="mb-16">
                         <h3 className="font-sans text-[12px] uppercase tracking-[4px] opacity-40 mb-10">About</h3>
                         <div className="flex items-center gap-4 mb-8">
                            <span className="font-serif text-[80px] font-black leading-none">2+</span>
                            <span className="font-sans text-[14px] leading-tight uppercase tracking-[2px] opacity-60">Years of<br/>experience</span>
                         </div>
-                        <p className="font-sans text-[15px] leading-[1.7] opacity-80" style={{ width: '282px' }}>
+                        <p className="font-sans text-[15px] leading-[1.7] opacity-80" style={{ width: isMobile ? '100%' : '282px' }}>
                           I’m just a girl with creative ideas and a serious relationship with good design. As a graphic designer, I turn random thoughts, tiny details, and last-minute sparks of inspiration into visuals that actually speak. Somewhere between color palettes, typography, and creative chaos, I found my thing — making ideas look beautiful, smart, and a little unforgettable.
                         </p>
                       </div>
                    </div>
 
                    {/* Column 2: Software & Education */}
-                   <div style={{ width: '236px' }}>
+                   <div style={{ width: isMobile ? '100%' : '236px' }}>
                       <div className="mb-12">
                         <h3 className="font-sans text-[12px] uppercase tracking-[4px] opacity-40 mb-10">Software</h3>
                         <div className="flex flex-col gap-3 items-start">
@@ -601,7 +611,7 @@ export default function App() {
                    </div>
 
                    {/* Column 3: Experience */}
-                   <div>
+                   <div style={{ width: isMobile ? '100%' : 'auto' }}>
                       <h3 className="font-sans text-[12px] uppercase tracking-[4px] opacity-40 mb-10">Experience</h3>
                       <div className="flex flex-col gap-8">
                          {[

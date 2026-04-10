@@ -18,7 +18,16 @@
 
 @layer base {
   body {
-    @apply bg-desk text-primary font-sans overflow-hidden cursor-none w-screen h-screen;
+    @apply bg-desk text-primary font-sans w-screen h-screen;
+    cursor: none;
+  }
+  @media (max-width: 767px) {
+    body {
+      cursor: auto;
+      overflow-y: auto;
+      height: auto;
+      min-height: 100vh;
+    }
   }
 }
 
