@@ -222,7 +222,7 @@ export default function App() {
       <nav className={`fixed top-0 left-0 w-full h-[64px] ${isMobile ? 'px-6' : 'px-12'} z-[100] flex justify-between items-center border-b border-black/[0.08] transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'} ${activeProject ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <div className="flex items-center gap-3">
           {!isMobile && <div className="w-2 h-2 bg-primary rounded-full" />}
-          <span className="font-sans text-[14px] font-bold uppercase tracking-[3px]">HARSHITA TANWAR</span>
+          <span className="font-sans text-[14px] font-bold uppercase tracking-[3px]">HARSHITA</span>
         </div>
         <div className={`flex ${isMobile ? 'gap-6' : 'gap-14'}`}>
           {['Work', 'About', 'Contact'].map((item) => (
